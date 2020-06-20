@@ -12,11 +12,26 @@ btn.addEventListener("click", function () {
     ourRequest.open(`GET`, `https://learnwebcode.github.io/json-example/animals-` + pageCounter + `.json`);
     //when it loads run function
     ourRequest.onload = function () {
-        //parse information so it doesnt interpret it as a string
-        //access objects with index instead of individual characters
-        var ourData = JSON.parse(ourRequest.responseText);
-        renderHTML(ourData);
+        if (ourRequest.status >= 200 && ourRequest.status < 400) {
+            //parse information so it doesnt interpret it as a string
+            //access objects with index instead of individual characters
+
+            var ourData = JSON.parse(ourRequest.responseText);
+            renderHTML(ourData);
+        }else {
+            console.log("We connected to server, but it returned an error.");
+        }
+
+
+
+
     };
+
+    ourRequest.onerror = function () {
+        console.log("Connection error");
+        renderHTML("Error:(")
+    };
+
     ourRequest.send();
     pageCounter++
     if (pageCounter > 3) {
