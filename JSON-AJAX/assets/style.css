@@ -1,0 +1,4 @@
+.hide-me{
+    /* or display value none */
+    visibility: hidden;
+};
